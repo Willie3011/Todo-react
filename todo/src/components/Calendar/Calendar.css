@@ -1,0 +1,82 @@
+.calendar{
+    grid-area: calendar;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+    background: white;
+
+    .calendar-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .month{
+            display: flex;
+            gap: 20px;
+
+            .month-name, .year{
+                font-size: 24px;
+                font-weight: 600;
+            }
+        }
+
+        .cal-btns{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            button{
+                display: flex;
+                align-items: center;
+                background-color: transparent;
+                padding: 10px;
+                border-radius: 8px;
+                border: none;
+                font-size: 16px;
+                color:  darkgray;
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                &:hover{
+                    background-color: lightgray;
+                    color: black;
+                }
+            }
+        }
+    }
+
+    .weekdays{
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-gap: 10px;
+
+        div{
+            padding: 0 10px;
+            font-size: 20px;
+        }
+    }
+
+    .days{
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+
+        div{
+            font-size: 18px;
+            padding: 10px;
+            height: 80px;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            
+
+            &:hover{
+                background-color: #f2f2f2;
+            }
+        }
+    }
+}
