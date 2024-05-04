@@ -1,8 +1,9 @@
 import React from 'react'
+import './Totals.css'
 
 function Totals() {
   return (
-    <div>Totals</div>
+    <div className='totals'>totals</div>
   )
 }
 

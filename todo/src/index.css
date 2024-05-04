@@ -14,6 +14,7 @@ body{
 }
 
 .app{
+    padding: 16px;
     width: 100%;
     height: 100vh;
     display: grid;
@@ -38,5 +39,20 @@ body{
 
 .totals{
     grid-area: totals;
+}
+
+
+@media screen and (max-width: 550px) {
+    .calendar{
+        grid-area: auto;
+    }
+
+    .todos{
+        grid-area: auto;
+    }
+
+    .totals{
+        grid-area: auto;
+    }
 }
 

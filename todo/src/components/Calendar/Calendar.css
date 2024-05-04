@@ -52,7 +52,7 @@
         margin-top: 20px;
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        grid-gap: 10px;
+        grid-gap: 5px;
 
         div{
             padding: 0 10px;
@@ -68,7 +68,7 @@
         div{
             font-size: 18px;
             padding: 10px;
-            height: 80px;
+            height: 65px;
             width: 100%;
             border-radius: 10px;
             cursor: pointer;
@@ -80,3 +80,76 @@
         }
     }
 }
+
+@media screen and (max-width: 991px){
+    .calendar{
+        width: 90%;
+
+        .weekdays{
+            div{
+                font-size: 18px;
+            }
+        }
+
+        .days{
+            div{
+                height: 50px;
+                font-size: 16px;
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+    .calendar{
+        height: 80%;
+        width: 80%;
+
+        .calendar-header{
+            .month{
+
+                .month-name, .year{
+                    font-size: 16px;
+                }
+            }
+
+            .cal-btns{
+                button{
+                    font-size: 12px;
+                }
+            }
+        }
+        .weekdays{
+            div{
+                font-size: 14px;
+            }
+        }
+
+        .days{
+            div{
+                display: flex;
+                text-align: center;
+                align-items: center;
+                height: 30px;
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .calendar{
+        width: auto;
+        height: auto;
+
+
+        .days{
+            div{
+                height: auto;
+                width: auto;
+            }
+        }
+    }
+}
+
