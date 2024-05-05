@@ -62,3 +62,27 @@
     
   }
 }
+
+@media  screen and (max-width: 320px) {
+  .todo{
+    .left{
+      h3{
+        font-size: 14px;
+      }
+
+      p{
+        font-size: 12px;
+      }
+    }
+
+    .right{
+      .check{
+
+        .radio{
+          height: 30px;
+          width: 30px;
+        }
+      }
+    }
+  }
+}
