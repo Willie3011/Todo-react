@@ -54,20 +54,12 @@ body{
 
 
 @media screen and (max-width: 768px) {
+    body{
+        overflow-y: auto;
+    }
     .app{
         display: flex;
         flex-direction: column;
-    }
-
-    .todos{
-        display: flex;
-        flex-direction: column;
-        height: auto;
-
-        .todo-list{
-            height: max-content;
-        }
-
     }
 
 }

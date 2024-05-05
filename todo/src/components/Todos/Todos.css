@@ -1,13 +1,12 @@
 .todos{
-    min-height: auto;
-    max-height: 80vh;
+    height: auto;
     width: 100%;
     background-color: white;
     border-radius: 20px;
     padding: 20px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    position: relative;
 
     .todos-header{
         margin-top: 10px;
