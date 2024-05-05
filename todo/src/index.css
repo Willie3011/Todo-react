@@ -41,18 +41,33 @@ body{
     grid-area: totals;
 }
 
+@media screen and (max-width:991px){
+    .app{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: 
+        "calendar calendar todos todos"
+        "calendar calendar todos todos"
+        "totals totals todos todos";
+    }
+}
 
-@media screen and (max-width: 550px) {
-    .calendar{
-        grid-area: auto;
+
+@media screen and (max-width: 768px) {
+    .app{
+        display: flex;
+        flex-direction: column;
     }
 
     .todos{
-        grid-area: auto;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+
+        .todo-list{
+            height: max-content;
+        }
+
     }
 
-    .totals{
-        grid-area: auto;
-    }
 }
 

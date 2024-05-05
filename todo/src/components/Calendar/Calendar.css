@@ -68,7 +68,7 @@
         div{
             font-size: 18px;
             padding: 10px;
-            height: 55px;
+            height: auto;
             width: 100%;
             border-radius: 10px;
             cursor: pointer;
@@ -84,8 +84,6 @@
 @media screen and (max-width: 991px){
     .calendar{
         height: max-content;
-        width: 90%;
-
         .weekdays{
             div{
                 font-size: 16px;
@@ -106,8 +104,6 @@
 
 @media screen and (max-width: 768px) {
     .calendar{
-        width: 80%;
-
         .calendar-header{
             .month{
 
