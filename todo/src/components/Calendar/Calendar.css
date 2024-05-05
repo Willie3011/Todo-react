@@ -55,6 +55,9 @@
         grid-gap: 5px;
 
         div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 0 10px;
             font-size: 18px;
         }
@@ -65,7 +68,13 @@
         grid-template-columns: repeat(7, 1fr);
         gap: 10px;
 
+        .today{
+            background-color: rgba(231, 108, 255, 0.404);
+        }
         div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 18px;
             padding: 10px;
             height: auto;
