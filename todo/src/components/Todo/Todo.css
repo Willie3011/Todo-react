@@ -63,7 +63,7 @@
   }
 }
 
-@media  screen and (max-width: 320px) {
+@media  screen and (max-width: 425px) {
   .todo{
     .left{
       h3{
