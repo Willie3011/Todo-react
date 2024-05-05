@@ -158,3 +158,22 @@
     }
 }
 
+@media screen and (max-width: 320px) {
+    .calendar{
+
+        .weekdays{
+            gap: 10px;
+            div{
+
+                width: 0;
+            }
+        }
+        .days{
+            div{
+                height: 0;
+                width: 0;
+            }
+        }
+    }
+}
+
