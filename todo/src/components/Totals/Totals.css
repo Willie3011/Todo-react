@@ -2,4 +2,62 @@
     width: 100%;
     height: 100%;
     background-color: white;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+
+    .total-tasks h2,
+    .total-in-progress h2,
+    .total-complete h2,
+    .total-incomplete h2{
+        font-size: 16px;
+        font-weight: 600;
+        color: #686868;
+        margin-bottom: 12px;
+    }
+
+    .total-tasks p,
+    .total-in-progress p,
+    .total-complete p,
+    .total-incomplete p{
+        font-size: 20px;
+        font-weight: 400;
+        color: #000;
+        margin-left: 10px;
+        position: relative;
+        
+    }
+
+    .total-tasks p::before,
+    .total-in-progress p::before,
+    .total-complete p::before,
+    .total-incomplete p::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -8px;
+        height: 100%;
+        width: 3px;
+    }
+
+    .total-tasks p::before{
+        background-color: rgb(10, 194, 194);
+    }
+
+    .total-in-progress p::before{
+        background-color: rgb(252, 179, 44);
+    }
+
+    .total-complete p::before{
+        background-color: rgb(151, 40, 255);
+    }
+
+    .total-incomplete p::before{
+        background-color: rgb(255, 72, 72);
+    }
+
 }
