@@ -3,7 +3,6 @@
     border-radius: 20px;
     padding: 20px;
     overflow: hidden;
-    height: 100%;
 
     .todos-header{
         margin-top: 10px;
@@ -11,7 +10,7 @@
         align-items: center;
         justify-content: space-between;
         h2{
-            font-size: 24px;
+            font-size: 20px;
             color: rgb(79, 79, 79);
         }
 
@@ -28,7 +27,9 @@
     }
 
     .todo-list{
-        margin-top: 20px;
+        padding:0 10px; 
+        margin: 40px 0px;
+        height: 100%;
         overflow: auto;
     }
 }
