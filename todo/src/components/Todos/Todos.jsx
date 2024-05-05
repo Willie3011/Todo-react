@@ -1,6 +1,7 @@
 import React from "react";
 import './Todos.css';
 import Todo from '../Todo/Todo';
+import AddTodo from "../AddTodo/AddTodo";
 
 function Todos() {
   return (
@@ -13,49 +14,9 @@ function Todos() {
         </span>
       </div>
       <div className="todo-list">
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
+        
       </div>
+      <AddTodo/>
     </div>
   );
 }
