@@ -1,5 +1,6 @@
 .todos{
-    min-height: 80vh;
+    min-height: auto;
+    max-height: 80vh;
     width: 100%;
     background-color: white;
     border-radius: 20px;
