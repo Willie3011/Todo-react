@@ -61,3 +61,17 @@
     }
 
 }
+
+@media screen and (max-width: 320px) {
+    .totals{
+        gap: 10px;
+        .total-complete,
+        .total-in-progress,
+        .total-incomplete,
+        .total-tasks{
+            h2{
+                font-size: 10px;
+            }
+        }
+    }
+}
