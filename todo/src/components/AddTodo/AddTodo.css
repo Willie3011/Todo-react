@@ -12,6 +12,7 @@
             width: 100%;
             height: 50px;
             padding: 10px 20px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
 
@@ -29,7 +30,7 @@
         display: block;
         position: absolute;
         top: 20px;
-        right: 30px;
+        right: 0px;
         width: 400px;
         height: auto;
         padding: 20px;
@@ -162,6 +163,28 @@
 
                 &:hover{
                     background-color: rgb(197, 97, 255)
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 425px){
+    .addTodo{
+        .addTodoModal{
+            width: 100%;
+            left: 0;
+            right: 0;
+
+            .modal-header{
+                h3{
+                    font-size: 16px;
+                }
+            }
+            
+            .completion-status{
+                .wrapper{
+                    flex-direction: column;
                 }
             }
         }

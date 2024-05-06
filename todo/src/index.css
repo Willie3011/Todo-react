@@ -18,15 +18,15 @@ body{
     padding: 16px;
     width: 100%;
     height: 100vh;
+    overflow: hidden;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 400px;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: 20px;
     grid-template-areas:
     "calendar calendar todos"
     "calendar calendar todos"
-    "totals totals todos"
-    ;
+    "totals totals todos";
+    gap: 20px;
 
 }
 
