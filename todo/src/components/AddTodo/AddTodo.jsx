@@ -108,31 +108,30 @@ function AddTodo() {
             <p>Task completion status</p>
             <div className="wrapper">
               <div className="input-group">
-                <label htmlFor="incomplete">Incomplete</label>
                 <input
                   type="radio"
                   name="completion"
                   id="incomplete"
                   onClick={() => setCompletion("Incomplete")}
                 />
+                <label htmlFor="incomplete">Incomplete</label>
               </div>
               <div className="input-group">
-                <label htmlFor="inprogress">In-progress</label>
                 <input
                   type="radio"
                   name="completion"
                   id="inprogress"
                   onClick={() => setCompletion("Inprogress")}
                 />
+                <label htmlFor="inprogress">In-progress</label>
               </div>
               <div className="input-group">
-                <label htmlFor="complete">Complete</label>
                 <input
                   type="radio"
                   name="completion"
                   id="complete"
                   onClick={() => setCompletion("Complete")}
-                />
+                /><label htmlFor="complete">Complete</label>
               </div>
             </div>
           </div>
