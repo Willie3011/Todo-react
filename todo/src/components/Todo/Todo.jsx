@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Todo.css";
 import { FaCheck } from "react-icons/fa";
 import { MdEdit, MdDeleteForever } from "react-icons/md";
 
-function Todo() {
+function Todo({ todo }) {
   const [checked, setChecked] = useState(false);
+  
+  useEffect(() => {
+    if(todo.completion === "Complete"){
+      setChecked(true);
+    }
+  }, [])
 
   const handleChecked = () => {
     setChecked(!checked);
   };
 
   return (
-    <div className="todo">
+    <div className="todo" id={todo.id}>
       <div className="left">
         <label htmlFor="done" className="check">
           <input type="checkbox" name="done" id="done" />
@@ -22,10 +28,9 @@ function Todo() {
           </span>
         </label>
         <div className="content">
-          <h3 className={checked === true ? "task-done" : ""}>Complete Project</h3>
+          <h3 className={checked === true ? "task-done" : ""}>{todo.title}</h3>
           <p className={checked === true ? "task-done" : ""}>
-            Finish implementing the task Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Facere, iure!
+            {todo.description}
           </p>
         </div>
       </div>
