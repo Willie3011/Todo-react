@@ -42,12 +42,10 @@ function Calendar() {
     for(let i = 1; i <= totalDays; i++){
       dayCount += 1;
       const isToday = currentDate.getDate() === i && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear();
-      console.log(isToday);
       calendar.push(
         <div key={`day-${i}`} className={`day${isToday? " today" : ""}`} onClick={() => console.log(`Clicked on day ${i}`)}> {i}</div>
       );
     }
-    console.log(totalDays);
     return calendar;
   }
 
