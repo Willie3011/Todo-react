@@ -14,7 +14,11 @@ function Todos() {
         </span>
       </div>
       <div className="todo-list">
-        
+        <Todo/>
+        <Todo/>
+        <Todo/>
+        <Todo/>
+        <Todo/>
       </div>
       <AddTodo/>
     </div>
