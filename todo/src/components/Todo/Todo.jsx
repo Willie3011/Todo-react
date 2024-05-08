@@ -3,8 +3,17 @@ import "./Todo.css";
 import { FaCheck } from "react-icons/fa";
 import { MdEdit, MdDeleteForever } from "react-icons/md";
 
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../../config/firestore";
+
 function Todo({ todo }) {
   const [checked, setChecked] = useState(false);
+
+  const handleDelete = async (id) => {
+    const docRef = doc(db, "todos", id);
+    await deleteDoc(docRef);
+  }
+
   
   useEffect(() => {
     if(todo.completion === "Complete"){
@@ -36,10 +45,10 @@ function Todo({ todo }) {
       </div>
       <div className="right">
         <div className="action-btns">
-          <button className="edit-btn">
+          <button className="edit-btn" onClick={() => handleEdit}>
             <MdEdit />
           </button>
-          <button className="delete-btn">
+          <button className="delete-btn" onClick={() => handleDelete(todo.id)}>
             <MdDeleteForever />
           </button>
         </div>

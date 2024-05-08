@@ -8,15 +8,20 @@ import { db } from "../../config/firestore";
 
 function Todos() {
   const [todos, setTodos] = useState([]);
+  const [size, setSize] = useState(0);
+  // get todos from firestore
   const getTodos = async () => {
     const querySnapshot = await getDocs(collection(db, "todos"));
+    setSize(querySnapshot.size);
     const todos = querySnapshot.docs.map(doc => ({
       id : doc.id, ...doc.data()
     }))
+    
     setTodos(todos);
   };
 
 
+  //load todos when the array changes
   useEffect(() => {
     getTodos();
   }, [todos]);
@@ -27,7 +32,7 @@ function Todos() {
       <div className="todos-header">
         <h2>Daily Tasks</h2>
         <span className="task-counter">
-          <p className="counter">1</p>
+          <p className="counter">{size}</p>
           for today
         </span>
       </div>
