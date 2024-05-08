@@ -1,9 +1,27 @@
-import React from "react";
-import './Todos.css';
-import Todo from '../Todo/Todo';
+import React, { useEffect, useState } from "react";
+import "./Todos.css";
+import Todo from "../Todo/Todo";
 import AddTodo from "../AddTodo/AddTodo";
 
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../config/firestore";
+
 function Todos() {
+  const [todos, setTodos] = useState([]);
+  const getTodos = async () => {
+    const querySnapshot = await getDocs(collection(db, "todos"));
+    const todos = querySnapshot.docs.map(doc => ({
+      id : doc.id, ...doc.data()
+    }))
+    setTodos(todos);
+  };
+
+
+  useEffect(() => {
+    getTodos();
+  }, [todos]);
+
+  
   return (
     <div className="todos">
       <div className="todos-header">
@@ -14,13 +32,11 @@ function Todos() {
         </span>
       </div>
       <div className="todo-list">
-        <Todo/>
-        <Todo/>
-        <Todo/>
-        <Todo/>
-        <Todo/>
+        {todos.map((todo, index) => (
+          <Todo key={todo.id} todo={todo}/>
+        ))}
       </div>
-      <AddTodo/>
+      <AddTodo />
     </div>
   );
 }
