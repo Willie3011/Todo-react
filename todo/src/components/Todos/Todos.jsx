@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Todos.css";
 import Todo from "../Todo/Todo";
 import AddTodo from "../AddTodo/AddTodo";
-import EditTodo from '../EditTodo/EditTodo';
 
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firestore";
 
-function Todos() {
+function Todos({dayClicked}) {
   const [todos, setTodos] = useState([]);
   const [size, setSize] = useState(0);
   // get todos from firestore
@@ -20,13 +19,16 @@ function Todos() {
     
     setTodos(todos);
   };
-
-
+  
+  
   //load todos when the array changes
   useEffect(() => {
     getTodos();
   }, [todos]);
-
+  
+  const filteredTodos = todos.filter(todo => todo.date === dayClicked);
+  
+  const todosToDisplay = filteredTodos.length === 0 ? todos : filteredTodos;
   return (
     <div className="todos">
       <div className="todos-header">
@@ -37,7 +39,7 @@ function Todos() {
         </span>
       </div>
       <div className="todo-list">
-        {todos.map((todo, index) => (
+        {todosToDisplay.map((todo, index) => (
           <Todo key={index} id={todo.id} todo={todo}/>
         ))}
       </div>

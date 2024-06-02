@@ -33,7 +33,7 @@ function Todo({ todo }) {
   };
 
   return (
-    <div className="todo" id={todo.id}>
+    <div className="todo" id={todo.date}>
       <div className="left">
         <label htmlFor="done" className="check">
           <input type="checkbox" name="done" id="done" />
