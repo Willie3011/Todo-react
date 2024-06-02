@@ -5,13 +5,20 @@ import { MdEdit, MdDeleteForever } from "react-icons/md";
 
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../config/firestore";
+import EditTodo from "../EditTodo/EditTodo";
 
 function Todo({ todo }) {
   const [checked, setChecked] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+
 
   const handleDelete = async (id) => {
     const docRef = doc(db, "todos", id);
     await deleteDoc(docRef);
+  }
+
+  const handleEdit = () => {
+    isEdit === false ? setIsEdit(true) : setIsEdit(false);
   }
 
   
@@ -19,7 +26,7 @@ function Todo({ todo }) {
     if(todo.completion === "Complete"){
       setChecked(true);
     }
-  }, [])
+  }, [todo])
 
   const handleChecked = () => {
     setChecked(!checked);
@@ -45,7 +52,7 @@ function Todo({ todo }) {
       </div>
       <div className="right">
         <div className="action-btns">
-          <button className="edit-btn" onClick={() => handleEdit}>
+          <button className="edit-btn" onClick={handleEdit}>
             <MdEdit />
           </button>
           <button className="delete-btn" onClick={() => handleDelete(todo.id)}>
@@ -53,6 +60,7 @@ function Todo({ todo }) {
           </button>
         </div>
       </div>
+      <EditTodo todoId={isEdit === true ? todo.id : null}/>
     </div>
   );
 }
