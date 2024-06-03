@@ -6,7 +6,7 @@ import AddTodo from "../AddTodo/AddTodo";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firestore";
 
-function Todos() {
+function Todos({dayClicked}) {
   const [todos, setTodos] = useState([]);
   const [size, setSize] = useState(0);
   // get todos from firestore
@@ -14,19 +14,21 @@ function Todos() {
     const querySnapshot = await getDocs(collection(db, "todos"));
     setSize(querySnapshot.size);
     const todos = querySnapshot.docs.map(doc => ({
-      id : doc.id, ...doc.data()
+      id: doc.id, ...doc.data()
     }))
     
     setTodos(todos);
   };
-
-
+  
+  
   //load todos when the array changes
   useEffect(() => {
     getTodos();
   }, [todos]);
-
   
+  const filteredTodos = todos.filter(todo => todo.date === dayClicked);
+  
+  const todosToDisplay = filteredTodos.length === 0 ? todos : filteredTodos;
   return (
     <div className="todos">
       <div className="todos-header">
@@ -37,8 +39,8 @@ function Todos() {
         </span>
       </div>
       <div className="todo-list">
-        {todos.map((todo, index) => (
-          <Todo key={todo.id} todo={todo}/>
+        {todosToDisplay.map((todo, index) => (
+          <Todo key={index} id={todo.id} todo={todo}/>
         ))}
       </div>
       <AddTodo />

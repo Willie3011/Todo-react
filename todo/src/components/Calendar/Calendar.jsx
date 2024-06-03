@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./Calendar.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-function Calendar() {
+function Calendar({handleDayClicked}) {
   //Months Array
   const MonthNames = [
     "January",
@@ -41,9 +41,10 @@ function Calendar() {
 
     for(let i = 1; i <= totalDays; i++){
       dayCount += 1;
+      const date = currentDate.getFullYear() +"-"+ (currentMonth < 10 ? `0${currentMonth + 1}` : currentMonth + 1) +"-"+ (i < 10 ? `0${i}` : i);
       const isToday = currentDate.getDate() === i && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear();
       calendar.push(
-        <div key={`day-${i}`} className={`day${isToday? " today" : ""}`} onClick={() => console.log(`Clicked on day ${i}`)}> {i}</div>
+        <div key={`day-${i}`} className={`day${isToday? " today" : ""}`} onClick={() => handleDayClicked(date)}> {i}</div>
       );
     }
     return calendar;
