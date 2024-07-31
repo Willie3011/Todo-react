@@ -3,162 +3,110 @@ import "./EditTodo.css";
 import { IoMdClose } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTodos } from "../../context/TodoContext";
 
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../../config/firestore";
 
 function EditTodo({ todoId }) {
   const [toggleModal, setToggleModal] = useState(false);
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [taskDate, setTaskDate] = useState("");
-  const [completion, setCompletion] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [todo, setTodo] = useState({
+    title: '',
+    description: '',
+    date: '',
+    completion: ''
+  });
+  const {getTodo, editTodo} = useTodos();
 
-  const fetchTodo = async () => {
-    if (!todoId) {
-      toast.error("No todo ID!", {
-        position: "bottom-right",
-        autoClose: 2000,
-      });
-    } else {
-      const todoRef = doc(db, "todos", todoId);
-      const todoSnap = await getDoc(todoRef);
-
-      if (todoSnap.exists()) {
-        const todo = todoSnap.data();
-        setTaskTitle(todo.title);
-        setTaskDescription(todo.description);
-        setTaskDate(todo.date);
-        setCompletion(todo.completion);
-
-      } else {
-        toast.error("Todo does not exist!", {
-          position: "bottom-right",
-          autoClose: 2000,
-        });
-      }
-    }
-  };
-
-  const updateTodo = async () => {
-    const todo = {
-      title: taskTitle,
-      description: taskDescription,
-      date: taskDate,
-      completion: completion,
-    };
-
-    await setDoc(doc(db, "todos", todoId), {
-        ...todo
-    });
-
-    setTaskTitle("");
-    setTaskDescription("");
-    setTaskDate("");
-    setCompletion("");
-    setToggleModal(false);
-    toast.success("Todo updated successfully!", {
-        position: "bottom-right",
-        autoClose: 2000,
-    })
-  };
-
+  //get todo
   useEffect(() => {
-    todoId ? setToggleModal(true) : setToggleModal(false);
-    
-  }, [todoId]);
-
-  useEffect(() => {
-    if(toggleModal === true){
-        fetchTodo()
+    async function getData() {
+      const data = await getTodo(todoId)
+      setTodo(data);
+      setToggleModal(!toggleModal);
     }
-  }, [toggleModal])
 
-  const handleUpdate = () => {
-    updateTodo();
+    getData()
+  }, [])
+
+  function removeEmptyValues(obj) {
+    return Object.entries(obj)
+      .filter(([_, value]) => value !== undefined && value !== null && value !== '')
+      .reduce((acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      }, {});
   }
-  const handleToggleModal = () => {
-    toggleModal === true ? setToggleModal(false) : setToggleModal(true);
-  };
 
-  const handleRadioChange = (event) => {
-    event.target.checked;
-  };
+  async function handleUpdate(){
+    setIsLoading(true);
+    const updatedTodo = removeEmptyValues(todo);
+    console.log(updatedTodo)
+    try{
+      await editTodo(todoId, updatedTodo);
+      setIsLoading(false);
+      setToggleModal(false);
+    }
+    catch (error){
+      console.log(error)
+      setIsLoading(false)
+    }
+  }
 
+  function handleChange(e){
+    const {name, value} = e.target;
+    setTodo(prevTodos => ({
+      ...prevTodos, 
+      [name] : value
+    }))
+  }
   return (
     <div
       id={todoId}
       className={toggleModal === true ? "edit-todo open" : "edit-todo close"}>
       <div className="modal-header">
         <h3>Edit Todo</h3>
-        <button onClick={handleToggleModal}>
+        <button >
           <IoMdClose />
         </button>
       </div>
       <div className="modal-body">
         <label htmlFor="title">Task title</label>
         <input
+        name="title"
           type="text"
           id="title"
-          value={taskTitle}
-          onChange={(e) => setTaskTitle(e.target.value)}
+          value={todo.title}
+          onChange={handleChange}
         />
         <label htmlFor="title">Task description</label>
         <textarea
+          name="description"
           type="text"
           id="description"
-          value={taskDescription}
-          onChange={(e) => setTaskDescription(e.target.value)}
+          value={todo.description}
+          onChange={handleChange}
         />
         <label htmlFor="title">Task date</label>
         <input
+          name="date"
           type="date"
           id="date"
-          value={taskDate}
-          onChange={(e) => setTaskDate(e.target.value)}
+          value={todo.date}
+          onChange={handleChange}
         />
         <div className="completion-status">
           <p>Task completion status</p>
-          <div className="wrapper">
-            <div className="input-group">
-              <input
-                type="radio"
-                name="completion"
-                id="incomplete"
-                onClick={() => setCompletion("Incomplete")}
-                checked={completion === "Incomplete" ? true : false}
-                onChange={handleRadioChange}
-              />
-              <label htmlFor="incomplete">Incomplete</label>
-            </div>
-            <div className="input-group">
-              <input
-                type="radio"
-                name="completion"
-                id="inprogress"
-                checked={completion === "Inprogress" ? true : false}
-                onChange={handleRadioChange}
-                onClick={() => setCompletion("Inprogress")}
-              />
-              <label htmlFor="inprogress">In-progress</label>
-            </div>
-            <div className="input-group">
-              <input
-                type="radio"
-                name="completion"
-                id="complete"
-                checked={completion === "Complete" ? true : false}
-                onChange={handleRadioChange}
-                onClick={() => setCompletion("Complete")}
-              />
-              <label htmlFor="complete">Complete</label>
-            </div>
-          </div>
+          <select name="completion" value={todo.completion} onChange={handleChange}>
+            <option>Select Completion Status</option>
+            <option value="todo">Todo</option>
+            <option value="inProgress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
         </div>
       </div>
       <div className="modal-footer">
         <button className="cancel">Cancel</button>
-        <button className="update" onClick={handleUpdate}>Update</button>
+        <button className="update" onClick={() => handleUpdate()}>Update</button>
       </div>
       <ToastContainer />
     </div>
