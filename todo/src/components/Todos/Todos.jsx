@@ -2,33 +2,24 @@ import React, { useEffect, useState } from "react";
 import "./Todos.css";
 import Todo from "../Todo/Todo";
 import AddTodo from "../AddTodo/AddTodo";
+import { useTodos } from "../../context/TodoContext";
 
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../config/firestore";
+function Todos({ dayClicked }) {
+  const [todosDisplayed, setTodosDisplayed] = useState([]);
+  const { todos, getFilteredTodos } = useTodos();
+  const [size, setSize] = useState(todos.length);
 
-function Todos({dayClicked}) {
-  const [todos, setTodos] = useState([]);
-  const [size, setSize] = useState(0);
-  // get todos from firestore
-  const getTodos = async () => {
-    const querySnapshot = await getDocs(collection(db, "todos"));
-    setSize(querySnapshot.size);
-    const todos = querySnapshot.docs.map(doc => ({
-      id: doc.id, ...doc.data()
-    }))
-    
-    setTodos(todos);
-  };
-  
-  
-  //load todos when the array changes
   useEffect(() => {
-    getTodos();
-  }, [todos]);
-  
-  const filteredTodos = todos.filter(todo => todo.date === dayClicked);
-  
-  const todosToDisplay = filteredTodos.length === 0 ? todos : filteredTodos;
+    if (dayClicked === '') {
+      setTodosDisplayed(todos);
+      
+    } else {
+      const filteredTodos = getFilteredTodos(todos, dayClicked);
+      setTodosDisplayed(filteredTodos);
+      setSize(filteredTodos.length);
+    }
+  }, [dayClicked, todos]);
+
   return (
     <div className="todos">
       <div className="todos-header">
@@ -39,9 +30,13 @@ function Todos({dayClicked}) {
         </span>
       </div>
       <div className="todo-list">
-        {todosToDisplay.map((todo, index) => (
-          <Todo key={index} id={todo.id} todo={todo}/>
-        ))}
+        {todosDisplayed
+          ? todosDisplayed.map((todo, index) => (
+              <Todo key={index} id={todo.id} todo={todo} />
+            ))
+          : todos.map((todo, index) => (
+              <Todo key={index} id={todo.id} todo={todo} />
+            ))}
       </div>
       <AddTodo />
     </div>

@@ -11,7 +11,6 @@ function App() {
 
  const handledayClicked = (day) => {
   setDayClicked(day);
-  
  }
   
   return (

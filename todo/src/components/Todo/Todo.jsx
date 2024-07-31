@@ -2,34 +2,58 @@ import React, { useEffect, useState } from "react";
 import "./Todo.css";
 import { FaCheck } from "react-icons/fa";
 import { MdEdit, MdDeleteForever } from "react-icons/md";
-
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../config/firestore";
 import EditTodo from "../EditTodo/EditTodo";
+import { useTodos } from "../../context/TodoContext";
 
-function Todo({ todo }) {
+function Todo({ todo, id }) {
   const [checked, setChecked] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [todoData, setTodoData] = useState({
+    completion: ''
+  })
+  const {editTodo, deleteTodo} = useTodos()
 
 
   const handleDelete = async (id) => {
-    const docRef = doc(db, "todos", id);
-    await deleteDoc(docRef);
+    await deleteTodo(id);
   }
 
   const handleEdit = () => {
-    isEdit === false ? setIsEdit(true) : setIsEdit(false);
+    setIsEdit(!isEdit);
+    console.log("clicked " + isEdit)
   }
 
   
   useEffect(() => {
-    if(todo.completion === "Complete"){
+    if(todo.completion === "done"){
       setChecked(true);
+    }
+    else if(todo.completion === "todo"){
+      setChecked(false)
+    }
+    else if(todo.completion === "inProgress"){
+      setChecked(false);
     }
   }, [todo])
 
-  const handleChecked = () => {
-    setChecked(!checked);
+  const handleChecked = async () => {
+    if(checked === false){
+      setTodoData({
+        completion: "done"
+      })
+    }
+    else{
+      setTodoData({
+        completion: "todo"
+      })
+    }
+
+    try{
+      await editTodo(id, todoData)
+    }
+    catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -52,7 +76,7 @@ function Todo({ todo }) {
       </div>
       <div className="right">
         <div className="action-btns">
-          <button className="edit-btn" onClick={handleEdit}>
+          <button className="edit-btn" onClick={() => handleEdit()}>
             <MdEdit />
           </button>
           <button className="delete-btn" onClick={() => handleDelete(todo.id)}>
@@ -60,7 +84,9 @@ function Todo({ todo }) {
           </button>
         </div>
       </div>
-      <EditTodo todoId={isEdit === true ? todo.id : null}/>
+      {
+        isEdit === true && <EditTodo todoId={id}/>
+      }
     </div>
   );
 }
